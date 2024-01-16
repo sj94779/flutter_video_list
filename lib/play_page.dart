@@ -43,14 +43,14 @@ class _PlayPageState extends State<PlayPage> {
     _isPlayingValue = value;
     _timerVisibleControl?.cancel();
     if (value) {
-      _timerVisibleControl = Timer(Duration(seconds: 2), () {
+      _timerVisibleControl = Timer(const Duration(seconds: 2), () {
         if (_disposed) return;
         setState(() {
           _controlAlpha = 0.0;
         });
       });
     } else {
-      _timerVisibleControl = Timer(Duration(milliseconds: 200), () {
+      _timerVisibleControl = Timer(const Duration(milliseconds: 200), () {
         if (_disposed) return;
         setState(() {
           _controlAlpha = 1.0;
@@ -65,7 +65,7 @@ class _PlayPageState extends State<PlayPage> {
       _controlAlpha = _controlAlpha > 0 ? 0 : 1;
     });
     _timerVisibleControl?.cancel();
-    _timerVisibleControl = Timer(Duration(seconds: 2), () {
+    _timerVisibleControl = Timer(const Duration(seconds: 2), () {
       if (_isPlaying) {
         setState(() {
           _controlAlpha = 0.0;
@@ -144,7 +144,8 @@ class _PlayPageState extends State<PlayPage> {
 
     controller.initialize().then((_) {
       debugPrint("---- controller initialized");
-      old?.dispose();
+    //  old?.dispose();
+      old?.pause();
       _playingIndex = index;
       _duration = null;
       _position = null;
@@ -217,11 +218,11 @@ class _PlayPageState extends State<PlayPage> {
         barrierDismissible: true,
         builder: (BuildContext context) {
           return AlertDialog(
-            content: SingleChildScrollView(child: Text("Played all videos.")),
+            content: const SingleChildScrollView(child: Text("Played all videos.")),
             actions: <Widget>[
               TextButton(
                 onPressed: () => Navigator.pop(context, true),
-                child: Text("Close"),
+                child: const Text("Close"),
               ),
             ],
           );
